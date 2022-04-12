@@ -1,6 +1,4 @@
-<!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,8 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
-
 <body>
+  @include('modales')
   <br><br>
     <div class="container">
         <div class="row row-cols-3">
@@ -24,21 +22,37 @@
             </div>
             <div class="col"></div>
         </div>
-        <div class="row row-cols-2">
-          <div class="col-8">
+        <div class="col">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+              Error:<br>
+              <ul>
+                  @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+            </div>
+            @endif
+          </div>
+        </div>
+        <div class="row row-cols-3">
+          <div class="col-2">
+            <div class="form-floating">
+              <button type="button" name="btn_reg" class="btn btn-primary btn-lg" onclick="verModal_Reg()">Nuevo Empleado</button>
+          </div>
+
+          </div>
+          <div class="col-5">
             <div class="form-floating mb-3">
               <input type="text" wire:model="buscar" class="form-control" id="floatingInput" placeholder="buscar">
-              <label for="floatingInput">Buscar producto</label>
+              <label for="floatingInput">Buscar Empleado</label>
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-2">
             <div class="form-floating">
               <select class="form-select" id="floatingSelect" aria-label="Floating label select example" wire:model="perPage">
                 <option value="12">12</option>
-                  @if (($productos->count())>=12)
                     <option value="16">16</option>
-                  @else
-                  @endif
               </select>
               <label for="floatingSelect">Ver por</label>
           </div>
@@ -66,16 +80,10 @@
             </div>
 
         </div>
-        @if($productos->count())
-          {{$productos->links()}}
-        @else
         <br><br>
         <div class="alert alert-danger" role="alert">
           <label>No hay registros con los criterios de su busqueda</label>
         </div>
-        @endif
     </div>
-
 </body>
-
 </html>

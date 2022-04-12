@@ -13,6 +13,36 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
+        <style media="screen">
+          a:link, a:visited,  a:hover, a:active
+          {
+              text-decoration: none;
+              color: white;
+          }
+
+        .btn_javier
+        {
+         cursor: pointer;
+         background-color: transparent;
+         color: white;
+         text-decoration: underline white;
+        }
+
+        .link_javier
+        {
+         cursor: pointer;
+         background-color: transparent;
+         color: white;
+         text-decoration: underline white;
+         font-size= 1;
+        }
+
+        #regiration_form fieldset:not(:first-of-type)
+        {
+          display: none;
+        }
+        </style>
+
         @livewireStyles
 
         <!-- Scripts -->
@@ -21,9 +51,10 @@
     <body class="font-sans antialiased">
         <x-jet-banner />
         <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
             <!-- Page Heading -->
             @if (isset($header))
+              @livewire('navigation-menu')
+
                 <header class="bg-white shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}

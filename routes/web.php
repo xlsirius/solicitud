@@ -16,3 +16,10 @@ use Livewire\Wellcome;
 */
 
 Route::get('/', \App\Http\Livewire\Wellcome::class)->name('index');
+
+
+Route::group(['middleware' => 'auth:sanctum', 'verified'], function ()
+{
+  Route::get('/home', 'App\Http\Controllers\UserController@index')->name('dashboard');
+
+});

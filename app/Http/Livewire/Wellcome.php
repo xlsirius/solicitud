@@ -22,24 +22,7 @@ class Wellcome extends Component
 
     public function render()
     {
-      
-      $productos = DB::table('productos')
-            ->join('users', 'users.id', '=', 'productos.user_id')
-            ->select(
-              'users.id as id_vendedor',
-              'users.name as name_vendedor',
-              'users.email as email_vendedor',
-              'users.profile_photo_path as foto_vendedor',
-              'productos.id',
-              'productos.name',
-              'productos.estado',
-              'productos.cantida',
-              'productos.description'
-              )
-      ->where('productos.name','LIKE',"%{$this->buscar}%")
-      ->paginate($this->perPage);
-
-      return View('livewire.wellcome',compact('productos'))
+      return View('livewire.wellcome')
       ->extends('layouts.app')
       ->section('content');
     }
