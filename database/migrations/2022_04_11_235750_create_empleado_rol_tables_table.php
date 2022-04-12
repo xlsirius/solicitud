@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('empleado_rol_tables', function (Blueprint $table) {
           $table->id();
             //-------------Relacion------------------
-           $table->unsignedBigInteger('user_id');
-           $table->foreign('user_id')
-           ->references('id')->on('users');
+           $table->string('user_email');
+           $table->foreign('user_email')
+           ->references('email')->on('users');
            //---------------------------------------
            $table->string('name_rol')->nullable();
            $table->timestamps();

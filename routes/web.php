@@ -17,6 +17,15 @@ use Livewire\Wellcome;
 
 Route::get('/', \App\Http\Livewire\Wellcome::class)->name('index');
 
+Route::post('/registro', 'App\Http\Controllers\EmpleadoRolTableController@store')->name('reg_empleado');
+
+Route::post('/view_reg/{id}', 'App\Http\Controllers\EmpleadoRolTableController@edit')->name('view_empleado');
+
+Route::put('/update_reg', 'App\Http\Controllers\EmpleadoRolTableController@update')->name('update_empleado');
+
+
+
+Route::delete('/del_registro', 'App\Http\Controllers\EmpleadoRolTableController@destroy')->name('del_empleado');
 
 Route::group(['middleware' => 'auth:sanctum', 'verified'], function ()
 {

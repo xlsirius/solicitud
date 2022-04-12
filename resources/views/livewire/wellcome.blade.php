@@ -11,21 +11,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-  @include('modales')
+@include('modales')
   <br><br>
+  <div class="container">
+
     <div class="container">
         <div class="row row-cols-3">
             <div class="col"></div>
             <div class="col">
-              <h2>Lista de empleados</h2>
+              <h2 class="text-white">Lista de empleados</h2>
               <br><br>
             </div>
-            <div class="col"></div>
         </div>
         <div class="col">
             @if ($errors->any())
             <div class="alert alert-danger">
-              Error:<br>
+              Noticia:<br>
               <ul>
                   @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -35,55 +36,64 @@
             @endif
           </div>
         </div>
-        <div class="row row-cols-3">
-          <div class="col-2">
-            <div class="form-floating">
-              <button type="button" name="btn_reg" class="btn btn-primary btn-lg" onclick="verModal_Reg()">Nuevo Empleado</button>
-          </div>
-
-          </div>
-          <div class="col-5">
-            <div class="form-floating mb-3">
-              <input type="text" wire:model="buscar" class="form-control" id="floatingInput" placeholder="buscar">
-              <label for="floatingInput">Buscar Empleado</label>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="form-floating">
-              <select class="form-select" id="floatingSelect" aria-label="Floating label select example" wire:model="perPage">
-                <option value="12">12</option>
-                    <option value="16">16</option>
-              </select>
-              <label for="floatingSelect">Ver por</label>
-          </div>
+        <div class="col-2">
+          <div class="form-floating">
+            <button type="button" name="btn_reg" class="btn btn-primary btn-lg" onclick="verModal_Reg()">Nuevo Empleado</button>
           </div>
         </div>
-        <div class="row row-cols-6">
-
-            <div class="col">
-                Nombre completo
-            </div>
-            <div class="col">
-                Correo
-            </div>
-            <div class="col">
-                Sexo
-            </div>
-            <div class="col">
-                Area
-            </div>
-            <div class="col">
-                Boletin
-            </div>
-            <div class="col">
-                Opciones
-            </div>
-
+        <br>
+              <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="text-white" scope="col">Nombre completo</th>
+                <th class="text-white" scope="col">Correo</th>
+                <th class="text-white" scope="col">Sexo</th>
+                <th class="text-white" scope="col">Area</th>
+                <th class="text-white" scope="col">Boletin</th>
+                <th colspan="2" class="text-white" scope="col"><center>Accion</center></th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($empleados as $empleado)
+              <tr>
+                <td><label class="text-white"> {{ $empleado->name_user }}</label></td>
+                <td><label class="text-white"> {{ $empleado->email_user }}</label></td>
+                <td><label class="text-white"> {{ $empleado->sexo_user }}</label></td>
+                <td><label class="text-white"> {{ $empleado->area_user }}</label></td>
+               <td><label class="text-white"> {{ $empleado->botelin_user }}</label></td>
+               <th class="text-white" scope="col">
+                 <th class="text-white" scope="col">
+                   <form id="frm_elimar" name="frm_elimar" action="{{ route('del_empleado') }}" method="POST">
+                     @csrf
+                     {{ method_field('DELETE') }}
+                     <input type="hidden" name="email_user" id="email_user" value="{{ $empleado->email_user }}">
+                     <input type="button" onclick="modal_confirmar()" class="btn btn-danger" value="Eliminar">
+                   </form>
+                 </th>
+                 <th class="text-white" scope="col">
+                   <form  onclick="modal_edit()" id="frm_edit" name="frm_edit" action="{{ route('view_empleado',$empleado->email_user ) }}" method="post">
+                     @csrf
+                     <input type="hidden" name="email_user_2" id="email_user_2" value="{{ $empleado->email_user }}">
+                     <input type="button" class="btn btn-warning text-white"  onclick="modal_edit()" value="Editar">
+                   </form>
+                 </th>
+               </th>
+              </tr>
+            @endforeach
+            </tbody>
+          </table>
         </div>
         <br><br>
-        <div class="alert alert-danger" role="alert">
-          <label>No hay registros con los criterios de su busqueda</label>
+        <div class="container">
+          @if($empleados->count())
+            {{$empleados->links()}}
+          @else
+          <div class="alert alert-danger" role="alert">
+            <label>No hay registros con los criterios de su busqueda</label>
+          </div>
+        @endif
         </div>
     </div>
+    @yield('editar_registro')
 </body>
 </html>

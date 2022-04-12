@@ -10,6 +10,7 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
+
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
@@ -50,7 +51,7 @@
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100" style="background-color: #1a202c;">
             <!-- Page Heading -->
             @if (isset($header))
               @livewire('navigation-menu')
@@ -66,8 +67,9 @@
                     {{ $slot }}
                   </main>
               @endif
-
-          @yield('content')
+              <div class="container" style="background-color: #1a202c;">
+                @yield('content')
+              </div>
         </div>
         @stack('modals')
         @livewireScripts
